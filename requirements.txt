@@ -1,0 +1,11 @@
+flask
+ipywidgets
+ipython
+tornado
+notebook
+numpy
+pandas
+wget
+# Version must match version installed in Dockerfile
+pyspark==3.2.1
+matplotlib

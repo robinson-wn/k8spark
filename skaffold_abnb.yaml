@@ -1,0 +1,15 @@
+apiVersion: skaffold/v2beta25
+kind: Config
+metadata:
+  name: k8spark
+build:
+  tagPolicy:
+    sha256: {}
+  artifacts:
+  - image: "myk8spark"
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - resources/abnb.yaml

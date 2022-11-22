@@ -1,0 +1,6 @@
+.dockerignore
+.vscode
+.idea
+TODO.txt
+*.tgz
+setup.sh
