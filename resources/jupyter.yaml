@@ -1,0 +1,71 @@
+apiVersion: "sparkoperator.k8s.io/v1beta2"
+kind: SparkApplication
+metadata:
+  name: jupyter
+  namespace: default
+  labels:
+    app: jupyter
+spec:
+  type: Python
+  pythonVersion: "3"
+  mode: cluster
+  image: "myk8spark"
+  # https://skaffold.dev/docs/environment/local-cluster/
+  #  Skaffold’s direct loading of images into a local cluster does mean that resources specifying an
+  # imagePullPolicy: Always may fail as the images are not be pushed to the remote registry.
+  # On Docker for Desktop, don't specify imagePullPolicy
+  # imagePullPolicy: Always
+  mainApplicationFile: local:///opt/spark/work-dir/runjupyter.py
+  sparkConf:
+    "spark.ui.port": "4040"
+  sparkVersion: "3.2"
+  restartPolicy:
+    type: Never
+  driver:
+    env:
+      - name: JUPYTER_PORT
+        value: "8888"
+    ports:
+      - name: jupyterui
+        containerPort: 8888
+        protocol: TCP
+    cores: 1
+    coreLimit: "1"
+    coreRequest: "1m"
+    memory: "512m"
+    labels:
+      version: "3.2"
+    serviceAccount: spark
+  executor:
+    coreLimit: "1"
+    coreRequest: "1m"
+    instances: 1
+    memory: "512m"
+    labels:
+      version: "3.2"
+  dynamicAllocation:
+    enabled: true
+    initialExecutors: 1
+    minExecutors: 1
+    maxExecutors: 2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: jupyter-loadbalancer
+  name: jupyter-loadbalancer
+spec:
+  type: LoadBalancer
+  selector:
+    # The UI runs in the driver, so use that for the selector
+    spark-role: driver
+  ports:
+    - name: jupyterui
+      protocol: TCP
+      port: 8888
+      targetPort: 8888
+    - name: sparkui
+      protocol: TCP
+      port: 4040
+      targetPort: 4040
