@@ -4,7 +4,9 @@ ipython
 tornado
 notebook
 numpy
-pandas
+# pandas 2.x requires spark >3.4
+# https://stackoverflow.com/questions/75926636/databricks-issue-while-creating-spark-data-frame-from-pandas
+pandas==1.5.3
 wget
 # Version must match version installed in Dockerfile
 pyspark==3.2.1

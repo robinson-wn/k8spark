@@ -14,7 +14,7 @@ spec:
   #  Skaffold’s direct loading of images into a local cluster does mean that resources specifying an
   # imagePullPolicy: Always may fail as the images are not be pushed to the remote registry.
   # On Docker for Desktop, don't specify imagePullPolicy
-  imagePullPolicy: Always
+#  imagePullPolicy: Always
   mainApplicationFile: local:///opt/spark/work-dir/runpi.py
   sparkConf:
     "spark.ui.port": "4040"

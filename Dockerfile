@@ -8,7 +8,10 @@ FROM datamechanics/spark:3.2-latest
 USER 0
 
 # Ensure current patches (standard security practice)
-RUN apt update && apt --yes upgrade
+# https://serverfault.com/questions/906972/the-following-signatures-couldnt-be-verified-because-the-public-key-is-not-avai
+RUN curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -\
+    && apt update \
+    && apt --yes upgrade
 
 # Specify the official Spark User, working directory, and entry point
 WORKDIR /opt/spark/work-dir
