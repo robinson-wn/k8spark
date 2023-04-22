@@ -25,7 +25,7 @@ spec:
     coreLimit: "1"
     coreRequest: "1m"
     # Increase memory if you have silent pod failure (from large datasets)
-    memory: "2g"
+    memory: "1g"
     labels:
       version: "3.2"
     serviceAccount: spark
