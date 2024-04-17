@@ -25,7 +25,7 @@ spec:
     coreLimit: "1"
     coreRequest: "1m"
     # Increase memory if you have silent pod failure (from large datasets)
-    memory: "1g"
+    memory: "1200m"
     labels:
       version: "3.2"
     serviceAccount: spark
@@ -34,14 +34,14 @@ spec:
     coreRequest: "1m"
     instances: 1
     # Increase memory if you have silent pod failure (from large datasets); Executors need more memory than driver (usually)
-    memory: "1g"
+    memory: "1000m"
     labels:
       version: "3.2"
   dynamicAllocation:
     enabled: true
     initialExecutors: 1
     minExecutors: 1
-    maxExecutors: 2
+    maxExecutors: 10
 ---
 apiVersion: v1
 kind: Service

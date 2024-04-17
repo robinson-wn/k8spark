@@ -39,7 +39,7 @@ spec:
     enabled: true
     initialExecutors: 1
     minExecutors: 1
-    maxExecutors: 5
+    maxExecutors: 10
 ---
 apiVersion: v1
 kind: Service

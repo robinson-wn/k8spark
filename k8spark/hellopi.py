@@ -11,7 +11,7 @@ __name__ = "hellopi"
 
 MILLION = 1000000
 n = MILLION * 100
-partitions = 20
+partitions = 6
 # 7 = 15.6s, 1 = 34s
 
 

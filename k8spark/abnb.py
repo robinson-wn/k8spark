@@ -27,7 +27,7 @@ __plot_graphs__ = True
 dataset_partitions = 30
 
 # http://insideairbnb.com/get-the-data.html
-data_url = "http://data.insideairbnb.com/united-states/ca/san-francisco/2022-09-07/data/listings.csv.gz"
+data_url = "https://data.insideairbnb.com/united-states/ca/san-francisco/2024-03-07/data/listings.csv.gz"
 data_file = "listings.csv.gz"
 
 
