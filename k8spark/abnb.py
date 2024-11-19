@@ -27,7 +27,7 @@ __plot_graphs__ = True
 dataset_partitions = 30
 
 # http://insideairbnb.com/get-the-data.html
-data_url = "https://data.insideairbnb.com/united-states/ca/san-francisco/2024-03-07/data/listings.csv.gz"
+data_url = "https://data.insideairbnb.com/united-states/ca/san-francisco/2024-09-04/data/listings.csv.gz"
 data_file = "listings.csv.gz"
 
 
@@ -88,9 +88,14 @@ def single_pipeline_multiple_regressions(params: Dict = None, folds=2, metric='r
         cv_models = cv.fit(train_data.limit(limit))
     else:
         cv_models = cv.fit(train_data)
-    best_model = cv_models.bestModel
     logger.info(f"Models metrics are: {cv_models.avgMetrics}")
-    logger.info(f"Best of all models: {best_model.stages[-1]}")
+    logger.debug(f"Best model: {cv_models.bestModel}")
+    best_model = cv_models.bestModel
+    # Odd error: java.util.NoSuchElementException: Failed to find a default value for link
+    try:
+        logger.info(f"Best pipeline stages are: {cv_models.bestModel.stages}")
+    except:
+        pass
     if limit:
         model_summary(best_model, test_data.limit(limit))
     else:

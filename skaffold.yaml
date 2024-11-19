@@ -1,15 +1,14 @@
-apiVersion: skaffold/v2beta25
+apiVersion: skaffold/v4beta11
 kind: Config
 metadata:
-  name: k8spark
+  name: k-spark-
 build:
-  tagPolicy:
-    sha256: { }
   artifacts:
-  - image: "myk8spark"
-    docker:
-      dockerfile: Dockerfile
-deploy:
-  kubectl:
-    manifests:
-    - resources/spark_hello.yaml
+  - image: myk8spark
+    context: .
+    docker: {}
+manifests:
+  rawYaml:
+  - resources/abnb.yaml
+  - resources/jupyter.yaml
+  - resources/spark_hello.yaml
