@@ -2,13 +2,12 @@ flask
 ipywidgets
 ipython
 tornado
-# notebook >6 doesn't support from notebook.notebookapp import NotebookApp
-notebook==6.5.6
+matplotlib
+notebook
+jupyterlab
+ipykernel
 numpy
-# pandas 2.x requires spark >3.4
-# https://stackoverflow.com/questions/75926636/databricks-issue-while-creating-spark-data-frame-from-pandas
-pandas==1.5.3
+pandas
 wget
 # Version must match version installed in Dockerfile
-pyspark==3.2.1
-matplotlib
+pyspark==4.1.1

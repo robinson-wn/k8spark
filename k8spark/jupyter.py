@@ -1,35 +1,27 @@
-# https://github.com/jupyter/notebook/blob/6.4.x/notebook/notebookapp.py
-# Consider adding extensions
-# https://towardsdatascience.com/jupyter-notebook-extensions-517fa69d2231
-
 import os
-import sys
-from uuid import uuid4
 
-
-from notebook.notebookapp import NotebookApp
-
-__name__ = "jupyter"
-
-if "JUPYTER_PORT" in os.environ:
-    PORT = os.environ['JUPYTER_PORT']
-else:
-    PORT = 8888
-TOKEN = str(uuid4())
-
-
-# https://stackoverflow.com/questions/66046154/cant-access-jupyter-notebook-in-docker-mac
-def nb_server(port=PORT, token=TOKEN):
-    print("Jupyter notebook token: {}".format(token))
-    app = NotebookApp()
-    app.initialize(["--port", f"{port}",
-                    "--ip", "0.0.0.0",
-                    f"--NotebookApp.token={token}",
-                    "--allow-root",
-                    "--no-browser"])
-    app.start()
+from k8spark import logger
 
 
 def main():
-    print(f"hidden token {TOKEN}", file=sys.stderr)
-    nb_server(port=PORT, token=TOKEN)
+    logger.info("Starting Jupyter Server")
+    bash_script = """
+    echo "--- Starting JupyterLab via Bash Bridge ---"
+    export JUPYTER_PORT=${JUPYTER_PORT:-8888}
+    
+    exec jupyter lab \
+        --ip=0.0.0.0 \
+        --port=$JUPYTER_PORT \
+        --no-browser \
+        --allow-root \
+        --NotebookApp.token='' \
+        --NotebookApp.password='' \
+        --notebook-dir=/opt/spark/work-dir
+    """
+
+    # This replaces the Python process with a Bash process running the string above
+    os.execvp("bash", ["bash", "-c", bash_script])
+
+
+if __name__ == "__main__":
+    main()

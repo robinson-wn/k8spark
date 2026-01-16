@@ -1,0 +1,44 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Kubernetes: hellopi",
+            "type": "cloudcode.kubernetes",
+            "request": "launch",
+            "skaffoldConfig": "${workspaceFolder}/skaffold.yaml",
+            "skaffoldFlags": {
+                "modules": ["spark-hellopi"]
+                },
+            "watch": true,
+            "cleanUp": true,
+            "portForward": true
+        },
+        {
+            "name": "Kubernetes: abnb",
+            "type": "cloudcode.kubernetes",
+            "request": "launch",
+            "skaffoldConfig": "${workspaceFolder}/skaffold.yaml",
+            "skaffoldFlags": {
+                "modules": ["spark-abnb"]
+                },
+            "watch": true,
+            "cleanUp": true,
+            "portForward": true
+        },
+        {
+            "name": "Kubernetes: jupyter",
+            "type": "cloudcode.kubernetes",
+            "request": "launch",
+            "skaffoldConfig": "${workspaceFolder}/skaffold.yaml",
+            "skaffoldFlags": {
+                "modules": ["spark-jupyter"]
+                },
+            "watch": true,
+            "cleanUp": true,
+            "portForward": true
+        }
+    ]
+}

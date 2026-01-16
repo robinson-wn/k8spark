@@ -1,14 +1,44 @@
-apiVersion: skaffold/v4beta11
+apiVersion: skaffold/v4beta13
 kind: Config
 metadata:
-  name: k-spark-
+  name: spark-hellopi
 build:
   artifacts:
-  - image: myk8spark
+  - image: myk8spark-hellopi
     context: .
     docker: {}
 manifests:
   rawYaml:
-  - resources/abnb.yaml
-  - resources/jupyter.yaml
-  - resources/spark_hello.yaml
+    - resources/hellopi.yaml
+deploy:
+  kubectl: {}      
+---
+apiVersion: skaffold/v4beta13
+kind: Config
+metadata:
+  name: spark-jupyter
+build:
+  artifacts:
+  - image: myk8spark-jupyter
+    context: .
+    docker: {}
+manifests:
+  rawYaml:
+    - resources/jupyter.yaml
+deploy:
+  kubectl: {}      
+---
+apiVersion: skaffold/v4beta13
+kind: Config
+metadata:
+  name: spark-abnb
+build:
+  artifacts:
+  - image: myk8spark-abnb
+    context: .
+    docker: {}
+manifests:
+  rawYaml:
+    - resources/abnb.yaml
+deploy:
+  kubectl: {}        

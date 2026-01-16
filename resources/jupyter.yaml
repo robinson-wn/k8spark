@@ -13,18 +13,20 @@ spec:
   # https://skaffold.dev/docs/environment/local-cluster/
   #  Skaffold’s direct loading of images into a local cluster does mean that resources specifying an
   # imagePullPolicy: Always may fail as the images are not be pushed to the remote registry.
-  # On Docker for Desktop, don't specify imagePullPolicy
-  # imagePullPolicy: Always
-  mainApplicationFile: local:///opt/spark/work-dir/runjupyter.py
+  # On Docker for Desktop, don't specify imagePullPolicy, but do with remote clusters.
+  # imagePullPolicy: Always     
+  mainApplicationFile: "local:///opt/spark/work-dir/runjupyter.py"   
   sparkConf:
     "spark.ui.port": "4040"
-  sparkVersion: "3.2"
+  sparkVersion: "4.1.1"
   restartPolicy:
     type: Never
-  driver:
+  driver:     
     env:
       - name: JUPYTER_PORT
         value: "8888"
+      - name: IMAGE_NAME
+        value: "myk8spark-jupyter"
     ports:
       - name: jupyterui
         containerPort: 8888
@@ -32,7 +34,8 @@ spec:
     cores: 1
     coreLimit: "1"
     coreRequest: "1m"
-    memory: "512m"
+    # More memory required for Jupyter UI that accumulates results
+    memory: "1G"
     labels:
       version: "3.2"
     serviceAccount: spark

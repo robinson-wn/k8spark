@@ -10,6 +10,7 @@ The simplest steps to run a spark application using Spark Operator are:
     ./setup.sh)
     ```
 * Press the Play button on the Run configuration in PyCharm to configure a Cloud Code configuration.
+* The Jupyter URL will be http://localhost:8888/tree?token=TOKEN_FROM_LOG
 
 **If you do the above, then you don't need to read the following.**
 Here's a bit more information.
@@ -68,9 +69,9 @@ helm install my-release spark-operator-1.1.26_fixed.tgz --create-namespace --nam
 
 If necessary, you can uninstall a helm chart by referring to its name:
 ```shell
- helm uninstall my-release --namespace spark-operator
+ helm uninstall my-spark-operator --namespace spark-operator
 ```
-The name, my-release, is arbitrary; you can give it any name.
+The name, my-spark-operator, is arbitrary; you can give it any name.
 
 
 # Create Spark account
